@@ -1,0 +1,41 @@
+//Select Queries - Example 2
+
+select min(price) from books;
+select max(price) from books;
+select count(price) from books;
+
+1.	Find the cheapest book of SIBM library.
+	select bname from books where price in (select min(price) from books b,i_library l where b.lid=l.lid and l.lname='sibm');
+
+2.	Which library has the costliest book?
+	select lname from i_library where lid in( select lid from books where price = (select max(price) from books b,i_library l where b.lid=l.lid ));
+
+3.	How many students from SIT issued the book?
+	select count(s.memid) from issue i, I_library l, member m, student s where m.lid=l.lid and m.memid=i.memid and l.lname='sit' and s.memid=m.memid;
+
+4.	What is the average cost of books in SITM library?
+select avg(b.price) from books b, I_library l where lname='sit' and b.lid=l.lid;
+
+5.	What is the total cost of purchase made by SSBS in the month of January?
+	select sum(p.totalcost) from I_library l, purchase p where l.lid=p.lid and l.lname='ssbs' and p.date between '2017-04-10' and '2017-08-10'; 
+
+6.	How many books are written by “Shruti”
+	select count(w.bid) from author a, writes w where a.aid=w.aid and a.aname='ruskin bond';
+
+7.	What is the costliest book published by “Pragati Book Store”
+	select bname from books where price in (select max(b.price) from publisher p, writes w, books b where p.pid=w.pid and p.pname='Penguin' and b.bid=w.bid);
+
+8.	How many total copies of books do SIT has?
+	select count(p.bid) from purchase p, I_library l where l.lid=p.lid and l.lname='sit';
+
+9.	What is the average cost of books written by “Mr. Kumar”?
+	select avg(w.bid) from writes w, author a where a.aid=w.aid and a.aname='ruskin bond';
+
+10.	How many books are sold by seller living in Nagpur?
+	select count(p.bid) from purchase p, seller s where p.sid=s.sid and s.city='Pune';
+
+11.	Print the student name in capital who belongs to SSBS
+	select upper(s.name) from student s,I_library l, department d where d.depid=s.depid and l.lname='sit' and l.lid=d.lid;
+
+12.	Write a query to display current data and time.
+	select now();

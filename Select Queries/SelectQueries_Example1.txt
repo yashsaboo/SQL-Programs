@@ -1,0 +1,55 @@
+//Select Queries - Example 1
+
+1.	Which libraries are located in pune city?
+	select * from I_library where city='pune';
+
+2.	find the library to which cs department is attached?
+	select lname from I_library where lid in(select lid from department where name='Science');
+
+3.	Which students belong to civil department?  
+	select name from student where depid in(select depid from department where name='Electrical');
+
+4.	Find out books which are written by “ruskin bond” and published by penguin.
+	select bname from Books b,Writes w,Author a,Publisher p where b.bid=w.bid and p.pid=w.pid and a.aid=w.aid and a.aname='ruskin bond' and p.pname='penguin';
+
+5.	Which members have issued books that belongs to SIT library
+	select * from member where memid in(select memid from issue where lid in(select lid from i_library where lname='sit'));
+
+6.	How many books have copies less than 5 available in the SIBM library?
+	select * from author where aid in(select aid from writes where bid in(select bid from books where price between 100 and 500));
+
+7.	Which staff members starts with letter “A”
+	select * from staff where name like 'a%';
+
+8.	List the books of SIT library
+	select * from books where lid in(select lid from i_library where lname='sit');
+
+9.	Which books are written by “ Ken Coel”
+	select * from books where bid in(select bid from writes where aid in(select aid from author where aname='Jane Austen'));
+
+10.	Which books are issued by student Shivani?
+	select * from books where bid in(select bid from no_of_copies where bnid in(select bnid from issue where memid in(select memid from student where name='Anjana Nair')));
+
+11.	From which seller did SIT library purchases books of “Technical publications”?
+	select s.sname from purchase p, I_library l,seller s where p.sid=s.sid and p.lid=l.lid and l.lname="sit" and p.bid in (select b.bid from books b, author a, writes w where b.bid=w.bid and a.aid=w.aid and b.bname='Tintin' and a.aname='Ruskin Bond');
+
+12.	Which books are issued by staff of SSLA law department?
+	select b.bname from department d,books b,staff s,issue i,no_of_copies n where d.depid=s.depid and s.memid=i.memid and i.bnid=n.bnid and n.bid=b.bid and d.name='Science';
+
+13.	Which sellers reside in the same city in which SCHC library resides?
+	select s.sname from seller s, I_library i where lname='sit' and i.city=s.city;
+
+14.	Find out the publishers whose books are provided by the seller “pragati books store” to SSBS library.
+	select pname from publisher p ,purchase pu,i_library l,books b,seller s where pu.pid=p.pid and pu.sid=s.sid and pu.bid=b.bid and pu.lid=l.lid;
+
+15.	Which books does SIT library have in the range of 1000-2500rs range
+	select bname from books b,i_library l where b.lid=l.lid and (b.price>=200 and b.price<=560);
+
+16.	Which books are published by “ruskin bond” with the publishing house penguin publications?
+	Select bname from books b,author a,writes w,publisher p where w.bid=b.bid and w.aid=a.aid and w.pid=p.pid and a.aname='ruskin bond' and p.pname='Penguin';
+ 
+17.	What are the purchase details of the SIT library for the month of august?
+	select * from purchase where Date='2017-08-11' and lid in(select lid from i_library where lname='sit');
+
+18.	Which institute does the member belong who have issued book number 2000? 
+	select lname from i_library l,member m,issue i where i.memid=m.memid and m.lid=l.lid and i.bnid=2000;

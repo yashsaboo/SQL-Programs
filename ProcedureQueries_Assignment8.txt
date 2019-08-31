@@ -1,0 +1,62 @@
+// Procedure Queries - Assignment 8 - Gather Details, Total, Increment, Maximum
+
+1. Write a procedure to find details of books of a given library.
+
+Delimiter @
+create procedure book (in lname text)
+begin
+select * from books b,i_library l where b.lid=l.lid and l.lname=lname;
+end @
+
+call book("SIT");
+
+2. Write a procedure to find out total no. of books written by a particular author.
+
+delimiter @
+create procedure tota(in aname text,out tot int)
+begin
+select count(*) from writes w,author a where a.aid=w.Aid and a.Aname=aname  into tot;
+end @
+
+call tota('Yash', @tot);
+select @tot;
+
+3. Write a procedure to increase price of books by 10% which are sold by a particular seller to a particular library.
+
+delimiter @
+create procedure up(in aname text)
+begin
+update books  set price=price*1.1 where bid in (select w.bid from writes w,author a where  w.aid=a.aid and a.aname=aname);
+end @
+
+call up("Yash");
+
+4. Write a procedure to count total number of publishers who are providing books to a particular library.
+
+delimiter @
+create procedure pub(in lname text)
+begin
+select count(*) from publisher p,i_library l,writes w ,author a,books b where w.pid=p.pid and w.aid=a.aid and b.bid=w.bid and b.lid=l.lid and lname='SIT';
+end @
+
+call pub('SIT');
+
+5. Write a procedure to find the costliest and the cheapest books that a particular library has.
+delimiter @
+create procedure mm(in lname text)
+begin
+
+select b.bname as costliest,max(b.price) ,b1.bname as cheapest,min(b.price) from books b,books b1,i_library l where b.lid=l.lid and b1.lid=l.lid  and l.lname='SIT';
+end @
+
+call mm('SIT');
+
+ 
+6. Write a procedure to provide total money spent by a particular library in purchasing books in a particular month.
+delimiter @
+create procedure cost(in lname text,in mon int)
+begin
+select sum(p.totalcost) from purchase p ,i_library l where p.lid=l.lid and mon = extract(month from p.date) and l.lname=lname;
+end @
+
+call cost('SIBM',07);

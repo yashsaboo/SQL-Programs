@@ -1,0 +1,110 @@
+//Create Tables for Database
+
+create table siu_library
+(slid int primary key,
+lname varchar(25) not null,
+location varchar(25) not null,
+no_of_branches int);
+
+create table I_library
+(lid int primary key auto_increment,
+lname varchar(25) not null,
+city varchar(25) not null,
+area varchar(25) not null,
+slid int, foreign key(slid) references siu_library(slid));
+
+create table Books
+(bid int primary key,
+bname varchar(25) not null,
+price int not null, 
+lid int, foreign key(lid) references I_library(lid));
+
+/////change here in author i made scid as foreign key/////////
+create table Specialization
+(scid int primary key,
+scname varchar(25) not null);
+
+create table Author
+(aid int primary key auto_increment,
+aname varchar(25) not null,
+phone varchar(10) not null,
+email varchar(25),
+scid int,foreign key(scid) references Specialization(scid));
+
+create table Seller
+(sid int primary key,
+sname varchar(25) not null,
+city varchar(25) not null);
+
+create table Sold_by
+( sid int, foreign key(sid) references Seller(sid),
+bid int, foreign key(bid) references Books(bid));
+
+create table Publisher
+(pid int primary key,
+pname varchar(25) not null);
+
+create table Writes
+(bid int, foreign key(bid) references Books(bid),
+aid int, foreign key(aid) references Author(aid),
+primary key(bid,aid),
+pid int, foreign key(pid) references Publisher(pid));
+
+create table Purchase
+(puid int primary key,
+lid int, foreign key(lid) references I_library(lid),
+sid int, foreign key(sid) references Seller(sid),
+bid int, foreign key(bid) references Books(bid),
+pid int, foreign key(pid) references publisher(pid),
+Quantity int not null,
+Date date not null,
+totalcost int not null);
+
+create table employee
+( eid int primary key,
+empname varchar(25) not null,
+email varchar(30) not null,
+salary int not null,
+lid int, foreign key(lid) references I_library(lid));
+
+//////added lid as foreign key
+create table Member
+(memid int primary key,
+mname varchar(25) not null,
+lid int, foreign key(lid) references I_library(lid));
+
+create table Issue
+( Issid int primary key,
+memid int, foreign key(memid) references Member(memid),
+bnid int, foreign key(bnid) references no_of_copies(bnid),
+lid int, foreign key(lid) references I_library(lid),
+issuedate date not null,
+returndate date not null);
+
+create table department
+(name varchar(25) not null,
+depID int primary key,
+lid int,foreign key(lid) references I_library(lid));
+
+//// stuid ko primary banaya/////////
+create table student
+( stuid int primary key,
+memid int, foreign key(memid) references Member(memid),
+name varchar(25) not null, 
+email varchar(25) not null,
+depID int ,foreign key(depID) references department(depID)); 
+
+create table staff
+( sta_id int primary key,
+memid int, foreign key(memid) references Member(memid),
+name varchar(25) not null,
+email varchar(25) not null,
+depID int ,foreign key(depID) references department(depID));
+
+create table No_of_copies
+(bnid int primary key,
+bid int, foreign key(bid) references Books(bid),
+blid int not null);
+
+alter table purchase add pid int not null;
+alter table purchase add foreign key(pid) references publisher(pid);

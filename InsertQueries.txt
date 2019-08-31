@@ -1,0 +1,105 @@
+//Insert Queries
+
+insert into siu_library values (1,'SYMBIOSIS','Pune',8);
+
+insert into I_library values (101,'Sit','Pune','Lavale',1);
+insert into I_library values (102,'Ssbs','Pune','SB_road',1);
+insert into I_library values (103,'Sid','Pune','Pashan',1);
+insert into I_library values (104,'Shp','Pune','Phoenix',1);
+insert into I_library values (105,'Sibm','Pune','Hinjewadi',1);
+insert into I_library values (106,'Slp','Pune','Sutarwadi',1);
+insert into I_library values (107,'Scms','Pune','VimanNagar',1);
+insert into I_library values (108,'Sica','Pune','Baner',1);
+
+insert into books values (1001,'tintin',450,103);
+insert into books values (1002,'youth',200,101);
+insert into books values (1003,'life',350,104);
+insert into books values (1004,'brother',300,105);
+insert into books values (1005,'harry potter',560,106);
+insert into books values (1006,'haunted',700,107);
+
+insert into specialization values (61,'Fiction');
+insert into specialization values (62,'Biography');
+insert into specialization values (63,'Kids');
+insert into specialization values (64,'Politics');
+insert into specialization values (65,'Non-Fiction');
+insert into specialization values (66,'Fiction');
+
+insert into author values (10001,'ruskin bond','9998988310','ruskin@gmail.com',61);
+insert into author values (10002,'chetan ','9870653412','chetan@gmail.com',62);
+insert into author values (10003,'Stephen Hawking','6785438211','step_hawking@gmail.com',63);
+insert into author values (10004,'Jane Austen','4567893756','Jane_austen@gmail.com',64);
+insert into author values (10005,'Yashwant Kanetkar','2345679856','Yash_k@hotmail.com',65);
+insert into author values (10006,'Durjoy Dutta','2789067456','Durjoy@yahoo.com',66);
+
+insert into seller values (111,'Tryion book stop','Pune');
+insert into seller values (112,'Jhon Snow sellers','Pune');
+insert into seller values (113,'A Girl is No one','Pune');
+insert into seller values (115,'Dragons and mums','Pune');
+insert into seller values (114,'Knight watch','Pune');
+
+insert into sold_by values (111,1001);
+insert into sold_by values (112,1002);
+insert into sold_by values (114,1003);
+insert into sold_by values (113,1004);
+
+insert into publisher values(1101,'Penguin');
+insert into publisher values(1102,'Coffee Time');
+insert into publisher values(1103,'Navneet');
+insert into publisher values(1104,'MTG Company');
+insert into publisher values(1105,'Shiro Comp');
+ 
+insert into writes values (1001,10004,1104);
+insert into writes values (1002,10002,1105);
+insert into writes values (1006,10003,1104);
+insert into writes values (1003,10001,1101);
+insert into writes values (1004,10005,1103);
+insert into writes values (1005,10006,1101);
+
+insert into employee values (11101,'yash Dhankhad','yash@gmail.com',45000,103);
+insert into employee values (11102,'Tanusha Jain','tanu@gmail.com',40000,105);
+insert into employee values (11103,'Anisha Alluru','ani@gmail.com',35000,107);
+insert into employee values (11105,'Shreya','shreya@gmail.com',30000,101);
+insert into employee values (11107,'Meghraj S. Devdhara','meghraj@gmail.com',50,102);
+
+insert into member values (171,'Ritika Goyal',101);
+insert into member values (160,'Anjana Nair',102);
+insert into member values (165,'Sharon Jacob',103);
+insert into member values (155,'Nidhi Chhabra',104);
+
+insert into department values ('Science',1,101);
+insert into department values ('Electrical',4,102);
+insert into department values ('Maths',3,103);
+insert into department values ('English',2,104);
+
+insert into student values (200,171,'Ritika Goyal','ritika@sit',1);
+insert into student values (201,160,'Anjana Nair','anjana@gmail.com',2);
+insert into student values (202,165,'Pooja','pooja@gmail.com',3);
+insert into student values (203,155,'Neha','neha@gmail.com',4);
+
+insert into staff values (1995,171,'Sharon Jacob','sharon@gmail.com',1);
+insert into staff values (1999,165,'Nidhi Chhabra','nidhi@gmail.com',4);
+insert into staff values (1989,160,'arya','arya@gmail.com',3);
+insert into staff values (1993,155,'sansa','sansa@gmail.com',2);
+
+insert into purchase values (00,101,113,1001,1101,5,'2017-08-11',9900);
+insert into purchase values (01,102,112,1002,1102,6,'2017-04-10',8100);
+insert into purchase values (10,103,114,1004,1103,8,'2017-05-10',5340);
+insert into purchase values (11,105,115,1003,1104,1,'1960-08-12',9500);
+
+insert into No_of_copies values (2000,1001,91);
+insert into No_of_copies values (2001,1002,92);
+insert into No_of_copies values (2002,1003,93);
+insert into No_of_copies values (2003,1004,94);
+insert into No_of_copies values (2004,1001,95);
+insert into No_of_copies values (2005,1002,96);
+insert into No_of_copies values (2006,1003,97);
+insert into No_of_copies values (2007,1004,98);
+insert into No_of_copies values (2008,1002,99);
+insert into No_of_copies values (2009,1003,100);
+insert into No_of_copies values (2010,1004,199);
+
+insert into Issue values (1771,171,2000,101,4/08/2014,14/08/2014);
+insert into Issue values (1772,160,2001,101,6/09/2014,16/09/2014);
+insert into Issue values (1773,165,2002,101,14/08/2014,24/08/2014);
+insert into Issue values (1774,155,2003,101,12/10/2014,22/10/2014);

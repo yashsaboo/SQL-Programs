@@ -1,0 +1,106 @@
+//Function Queries - Assignment 7 - Multiply, Average, Maximum, Cheapest, Total, Factorial
+
+1. Function to multiply two numbers
+
+    Delimiter @ 		
+    Create function multil (n1 int, n2 int)
+    returns int		
+    Begin 
+    	Declare result int;
+    	Set result = n1 * n2;
+    	return result;
+    End @			
+
+    select multil (8, 6);
+
+2. Function to find average of four numbers;
+
+    Delimiter @
+    Create function average(n1 int, n2 int, n3 int, n4 int)
+    returns float 
+    Begin
+    	Declare result float;
+        Set result = (n1 + n2 + n3 + n4) / 4;
+        return result;
+    End @
+
+    select average(1, 2, 3, 4);
+ 
+3. Function to find maximum of two numbers
+
+    Delimiter @
+    Create function maximum(x int, y int)
+    returns int
+    Begin 
+    	Declare z int;
+        if x > y then
+    		set z = x;
+    	else
+    		set z = y;
+    	end if;
+        return z;
+    end @
+
+    select maximum(5, 4);
+
+4. Function to find the library name which has the cheapest books
+
+    Delimiter @
+    Create function cheapbook()
+    returns varchar(20)
+    Begin
+    	Declare namelib varchar(20);
+        Declare minprice int;
+        select min(price) into minprice from books;
+        select l.lname into namelib from i_library l, books b where l.lid = b.lid and b.price = minprice;
+        return namelib;
+    end @
+
+    select cheapbook();
+
+5. Function to find total number of books in siu library
+
+    Delimiter @
+    Create function totalbooks()
+    returns int
+    Begin	
+    	Declare total int;
+        select count(*) into total from books;
+        return total;
+    end @
+
+    select totalbooks();
+
+6. Function to find factorial of a number
+
+    Delimiter @
+    Create function fact(n1 int)
+    returns int
+    Begin
+    	Declare result int;
+        set result = 1;
+        label: loop
+        set result = result * n1;
+        set n1 = n1 - 1;
+        if n1 > 0 then
+    		iterate label;
+    	end if;
+        leave label;
+        end loop label;
+        return result;
+    end @
+
+    select fact(4);
+
+7. Function to find total number of books issues by SIT staff
+
+    Delimiter @
+    Create function staffbooks()
+    returns int
+    Begin
+    	declare total int;
+        select count(i.issis) into total from issue i, members m, staff s, i_library l where i.memid = m.memid and m.memid = s.memid and m.lid = l.lid and l.lname = 'SIT';
+        return total;
+    end @
+
+    select staffbooks();

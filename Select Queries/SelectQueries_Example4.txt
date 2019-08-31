@@ -1,0 +1,44 @@
+//Select Queries - Example 4
+
+Students in the CSIT department.
+	select s.name from student s inner join department d on s.Depid = d.Depid and d.Dname = 'CSIT';
+
+Books in SIT library.
+	select * from books b inner join i_library i on b.lid = i.lid and i.lname = 'SIT';
+
+Books with less than 3 copies in SIT library.
+	create temporary table count_books
+	(Bid int primary key);
+	insert into count_books
+	select p.Bid from purchase p inner join i_library i on p.lid = i.lid and p.quantity < 3 and i.lname =    'SIT';
+	select * from books b inner join count_books c on b.Bid = c.Bid;
+
+Sellers in the same city as SIT.
+	select * from seller s inner join i_library i on s.city = i.city and i.lname = 'SIT';
+
+Sellers selling books to SIT.
+	create temporary table seller_id
+	(Sid int primary key);
+	insert into seller_id
+	select distinct p.Sid from purchase p inner join i_library i on p.lid = i.lid and i.lname = 'SIT';
+	select * from seller s inner join seller_id i on s.Sid = i.Sid;
+
+Books authored by Yash, and published by McGraw Hill.
+	create temporary table book_details
+	(Bid int primary key);
+	select distinct w.Bid from writes w, publisher p, author a where w.Aid = a.Aid and w.Pid = p.Pid    and p.pname = 'McGraw Hill' and a.Aname = 'Yash';
+	select * from books b inner join book_details d on b.Bid = d.Bid;
+
+Books authored by 'Yash'.
+	create temporary table book_details
+	(Bid int primary key);
+	insert into book_details
+	select distinct w.Bid from writes w inner join author a on w.Aid = a.Aid and a.Aname = 'Yash';
+	select * from books b inner join book_details d on b.Bid = d.Bid;
+
+Books issued by Yash.
+	create temporary table book_details
+	(Bid int primary key);
+	insert into book_details
+	select distinct n.Bid from issue i, no_of_copies n, student s, members m where m.memid = s.memid   and s.name = 'Yash' and i.memid = m.memid and n.Bnid = i.BNid;
+	select * from books b inner join book_details d on b.Bid = d.Bid;

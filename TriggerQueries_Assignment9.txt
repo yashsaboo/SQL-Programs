@@ -1,0 +1,40 @@
+//Trigger Queries - Assignment 9
+
+create table booksupdate_log(tid int auto_increment, bid int not null, bname varchar(25) not null, action varchar(15), lid int not null, price int not null, changed_on datetime, primary key(tid));
+create table purchaseupdate_log(tid int auto_increment, prid int not null, lid int not null, Sid int not null, Bid int not null, quantity int not null, Date varchar(20), action varchar(15), totalcost int, changed_on datetime, primary key(tid));
+
+#Update trigger
+	Delimiter @
+	create trigger update_books
+	after update on books
+	for each row
+	begin
+		insert into booksupdate_log
+	    set action = 'update', bid = old.bid, bname = old.bname, lid = old.lid, price = old.price, changed_on = now();
+	end @
+
+	update books set bname = 'TOC' where bid = 101;
+
+#Insert trigger
+	Delimiter @
+	create trigger insert_books
+	before insert on books
+	for each row
+	begin 
+		insert into booksupdate_log
+	    set action = 'insert', bid = new.bid, bname = new.bname, lid = new.lid, price = new.price, changed_on = now();
+	end @
+	insert into books values(121, 249, 2, 'DBMS');
+ 
+
+#Update trigger
+	Delimiter @
+	create trigger update_purchase_table
+	after update on purchase
+	for each row
+	begin
+		insert into purchaseupdate_log
+	    set action = 'update', prid = old.prid, lid = old.lid, Sid = old.Sid, Bid = old.Bid, quantity = old.quantity, Date = old.Date, totalcost = old.totalcost, changed_on = now();
+	end @
+
+	update purchase set Date = '11/07/1997' where Prid = 100;

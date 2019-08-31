@@ -1,0 +1,37 @@
+//Select Queries - Example 3
+
+Give library wise book details.
+  select * from Books order by lid;
+
+Give citywise seller count
+  select city, count(Sid) from seller group by city;
+     
+Give departmentwise staff details having average salary greater than 500.
+  select * from staff where salary > 500000 order by Depid;
+      
+Give bookwise total copies which are available.
+  select Bid, count(Bl_id) from no_of_copies group by Bid;
+      
+Give authorwise group count who have authored more than 2 books. 
+  select Aid, count(Bid) from writes group by Aid having count(Bid) > 2;
+     
+How many books are issued library wise?
+  select lid, count(BNid) from issue group by lid;
+     
+Give librarywise purchase count having totalcost sum > 10000
+  select lid, count(Prid) from purchase group by lid having sum(totalcost) > 10000;
+     
+Find first three costliest books.
+  select * from books order by price desc limit 3;
+     
+Find the employee of SIT library having least salary
+  select * from employee e, i_library i where i.lid = e.lid and i.lname = 'SIT' order by salary limit 1;
+  
+Find the cheapest books of SLS library
+  select * from books e, i_library i where i.lid = e.lid and i.lname = 'SLS' order by price limit 1;
+    
+Find out the libraries having maximum books issued.
+  select lname from i_library where lid in (select i.lid from issue i group by (i.lid) having count(issis) >= all(select count(i1.issis) from issue i1 group by(i1.lid))); 
+   
+Find out the library having minimum number of total books.
+  select min(x.count) from (select count(b.bid) as count from i_library i, books b where i.lid = b.lid     group by (lname))x;

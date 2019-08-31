@@ -1,0 +1,142 @@
+//Notes for reference
+
+USE:
+to make into work your current directory
+syntax : use sakshi_siulibrary;
+ 
+SHOW:
+Show databases; to see the details of what all tables are there in the database
+syntax : Show tables;
+
+CREATE:
+create a new db/db table
+syntax : create database databasename;
+eg:
+//for creating database
+create database sakshi_siulibrary;
+
+//for creating database
+create database if not exit databasename;
+
+//for creating table
+syntax : create table tablename
+              (columnname1 datatype constraint....n)
+eg:
+            create table siu_library
+           (slid int primary key auto_increment,
+             lname varchar(25) not null, 
+             location varchar(25) not null,
+             no_of_branches int); 
+
+
+            //to create another table
+            create table I_library
+            (lid int primary key auto_increment,
+             lname varchar(25) not null,
+            city varchar(25) not null,
+            area varchar(25) not null,
+            slid int,foreign key(slid) references siu_library(slid));
+
+
+
+NOTE: when u want to put date u can use int as datatype & enter date as '01-05-2017' 
+              incase use datatype as date and enter date as '01-05-17'
+
+DESC:
+to get details of table 
+syntax : desc tablename;
+eg        : desc siu_library;
+
+
+ALTER COMMANDS 
+1) to add new column 
+syntax : alter table tablename add columnname datatype constraint;
+eg       : alter table i_library add bid int not null;
+
+2)to delete any column
+syntax : alter table tablename drop column columnname;
+
+3)to update the column
+syntax: alter table tablename modify columnname datatype constraint;
+
+4)to delete the primary key
+syntax: alter table tablename drop primary key;
+
+5)to rename a column
+syntax: alter table tablename change oldname newcolumnname
+
+6)to add primarykey
+syntax : alter table tablename add primary key(columnname)
+
+7)to add unique constraint 
+syntax: alter table tablename add unique(columnname)
+
+8)to add default constraint
+syntax : alter table tablename modify columnname datatype defaultvalue
+
+TWO MORE TYPES OF CONSTRAINTS 
+1)UNIQUE
+columnname datatype unique;
+2)DEFAULT
+columnname datatype default defaultvalue
+
+INSERT:
+syntax : insert into tablename values( , ' ',  ,);
+eg        :
+insert into employee values(70, 'Ram', 'ram@gmail.com', 500, 101);
+
+OTHER WAY :
+syntax : insert into tablename(columnnames)values( ,  , ,, );
+eg        : insert into i_library(lid,lname,city,area,slid)values(1,'sit','pune','lavale',1);
+
+SELECT 
+selects the data from table and displays 
+syntax : select * from tablename;
+              select columnname from tablename where constraints;
+
+RENAME 
+to rename an existing table
+syntax : rename table oldname to newname;
+
+//TO ADD AN ATTRIBUTE OF ONE TABLE INTO EXISTING TABLE AND ALSO MAKE THAT KEY AS FOREIGN 
+alter table issue add bnid int not null;
+alter table issue add foreign key(bnid) references no_of_copies(bnid);
+
+DATA EXTRACTION
+1)select statement : select rows from the tables
+syntax: Select columnnames from table;
+* selects all columns
+eg : select distinct columnames from tablename; // select only unique values
+
+2)TO FILTER THE SELECTED ROWS 
+SYNTAX: Select * from tablename where condition;
+logical operators 
+1)AND : select * from table where cond1 and cond2;
+2)OR  : select * from table where cond1 or cond2;
+3)NOT : select * from table where Not cond;
+
+comparison operators
+=,>,<,>=,<=,<>
+eg select * from books where price >= 5000;
+eg select * from staff where deptid <>10;
+
+keywords 
+1)like -> we can do pattern search
+2)between -> search within the range
+3)in -> multiple value comparison
+
+LIKE KEYWORD :- % -> zero,one or multiple characters 
+                _ -> single character
+eg -> select * from i_library where city like 'p%'
+select * from staff where staffname like 'a%'
+
+
+PATTERNS 
+'a%' -> finds any value that starts with a
+'%a' -> finds any value that ends with a
+'%as%' -> finds any value that has 'as' in any position
+'_a%' -> finds any value that has a as a second character
+'a_%_%' -> finds any value that starts with a and is atleast 3 characters in length
+'a%r' -> finds value that starts with a and else with r
+'[a-c]%' -> finds values that starts with a,b or c
+'[bcp]%' -> finds values that starts with either b,s or p.
